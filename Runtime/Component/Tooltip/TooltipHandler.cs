@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -56,6 +56,13 @@ namespace XCharts.Runtime
                     chart.chartMaxAnchor, chart.chartPivot, chart.chartSizeDelta);
                 var tooltipObject = tooltip.gameObject;
                 tooltipObject.transform.localPosition = Vector3.zero;
+
+                var canvas = tooltipObject.GetComponent<Canvas>();
+                if (!canvas)
+                    canvas = tooltipObject.AddComponent<Canvas>();
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 99;
+
                 tooltipObject.hideFlags = chart.chartHideFlags;
                 var parent = tooltipObject.transform;
                 ChartHelper.HideAllObject(tooltipObject.transform);
